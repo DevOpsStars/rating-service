@@ -1,10 +1,19 @@
+version: '3'
+
 services:
-  mongodb:
-    image: 'mongo:latest'
-    container_name: 'booking_service_mongodb'
+  app:
+    build:
+      context: .
+    container_name: rating_service_app
     environment:
-      - 'MONGO_INITDB_DATABASE=mydatabase'
-      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - SPRING_DATA_MONGODB_URI=mongodb://rating_service_mongodb:27017/test
     ports:
-      - '27018:27017'
+      - "4001:8080"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: rating_service_mongodb
+    ports:
+      - "27018:27017"
