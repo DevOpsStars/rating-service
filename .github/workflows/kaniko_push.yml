@@ -1,0 +1,23 @@
+name: Build and Push Docker Image with Kaniko
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      
+      - name: Kaniko build
+        uses: aevea/action-kaniko@master
+        with:
+          image: mladenv7/rating-service
+          tag_with_latest: mladenv7/rating-service:${{ github.event.release.tag_name }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          cache: true
+          cache_registry: aevea/cache
