@@ -6,7 +6,10 @@ services:
       context: .
     container_name: rating_service_app
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://rating_service_mongodb:27017/test
+      - MONGO_HOST=rating_service_mongodb
+      - MONGO_DB=test1
+      - MONGO_INITDB_ROOT_USERNAME=pera1
+      - MONGO_INITDB_ROOT_PASSWORD=pera1
     ports:
       - "4001:8080"
     depends_on:
@@ -16,4 +19,8 @@ services:
     image: mongo:latest
     container_name: rating_service_mongodb
     ports:
-      - "27018:27017"
+      - "27017:27017"
+    environment:
+      - MONGO_DB=test1
+      - MONGO_INITDB_ROOT_USERNAME=pera1
+      - MONGO_INITDB_ROOT_PASSWORD=pera1

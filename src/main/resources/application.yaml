@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: spring-mongo-service
+  data:
+    mongodb:
+      host: '${MONGO_HOST}'
+      database: '${MONGO_DB}'
+      port: 27017
+      username: '${MONGO_INITDB_ROOT_USERNAME}'
+      password: '${MONGO_INITDB_ROOT_PASSWORD}'
+      authentication-database: admin
+  cloud:
+    kubernetes:
+      discovery:
+        register: true
+      secrets:
+        name: mongodb-secret
+
+      config:
+        enabled: true
+        sources:
+          - namespace: rating
+            name: mongodb-configmap
+      reload:
+        enabled: true
+        mode: polling
+        period: 1000
+  profiles:
+    active: default
+
+
+management:
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
