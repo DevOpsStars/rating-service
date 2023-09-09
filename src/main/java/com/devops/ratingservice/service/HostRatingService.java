@@ -51,12 +51,11 @@ public class HostRatingService {
 
     public Double getAverage(Integer hostId) {
         List<HostRating> ratings = hostRatingRepository.findAllByHostId(hostId);
-        Double count = Double.valueOf(ratings.size());
+        int count = ratings.size();
         if (count == 0) return null;
-        Double average = ratings.stream()
+        return ratings.stream()
                 .mapToDouble(HostRating::getRate)
                 .average().orElse(0.0);
-        return average;
     }
 
     public List<HostRating> getAllByHost(Integer hostId) {
