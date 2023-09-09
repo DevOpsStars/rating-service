@@ -19,7 +19,7 @@ services:
     image: mongo:latest
     container_name: rating_service_mongodb
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
       - MONGO_DB=test1
       - MONGO_INITDB_ROOT_USERNAME=pera1

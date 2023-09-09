@@ -25,6 +25,7 @@ public class HostRatingController {
 
     @GetMapping(value = "/new-rating/{guestId}/{hostId}/{rating}")
     public ResponseEntity<HostRating> create(@PathVariable Integer guestId, @PathVariable Integer hostId, @PathVariable Integer rating) {
+        if (rating > 5 || rating < 1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         HostRating result = this.hostRatingService.createNew(guestId, hostId, rating);
         if (result == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -46,6 +47,7 @@ public class HostRatingController {
 
     @GetMapping(value = "/update/{id}/{rating}")
     public ResponseEntity<HostRating> update(@PathVariable String id, @PathVariable Integer rating) {
+        if (rating > 5 || rating < 1) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         HostRating result = this.hostRatingService.update(id, rating);
         if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -61,7 +63,6 @@ public class HostRatingController {
     public ResponseEntity<Double> average(@PathVariable Integer hostId) {
         Double result = hostRatingService.getAverage(hostId);
         if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        System.out.println("result from service " + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
