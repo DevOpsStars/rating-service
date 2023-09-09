@@ -51,7 +51,7 @@ public class HostRatingControllerUnitTest {
     }
 
     @Test
-    public void givenValidRequestButExistingRating_whenCreateNewRating_thenRatingIsCreated() throws Exception {
+    public void givenValidRequestButExistingRating_whenCreateNewRating_thenForbidden() throws Exception {
         // given
         when(hostRatingService.createNew(anyInt(), anyInt(), anyInt())).thenReturn(null);
 
